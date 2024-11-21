@@ -61,6 +61,9 @@ public class ColorPanel extends JPanel
 		gridPanel.add(changeColorButton);
 		gridPanel.add(colorInfoLabel);
 		gridPanel.add(setColorButton);
+		gridPanel.add(redField);
+		gridPanel.add(greenField);
+		gridPanel.add(blueField);
 		add(gridPanel);
 	}
 	
@@ -87,7 +90,7 @@ public class ColorPanel extends JPanel
 		catch (NumberFormatException error)
 		{
 			redAmount = (int) (Math.random() * 256);
-			blueField.setText(redAmount + "");
+			redField.setText(redAmount + "");
 		}
 		try
 		{
@@ -95,8 +98,8 @@ public class ColorPanel extends JPanel
 		}
 		catch (NumberFormatException error)
 		{
-			greenAmount = (int) (Math.random() * 256);
-			blueField.setText(greenAmount + "");
+			greenAmount = (int) (Math.random() * 1123124) % 256;
+			
 		}
 		try
 		{
@@ -105,12 +108,17 @@ public class ColorPanel extends JPanel
 		catch (NumberFormatException error)
 		{
 			blueAmount = (int) (Math.random() * 256);
-			blueField.setText(blueAmount + "");
+			
 		}
+		
+		redField.setText(redAmount + "");
+		greenField.setText(greenAmount + "");
+		blueField.setText(blueAmount + "");
 		
 		setBackground(new Color(redAmount, greenAmount, blueAmount));
 		colorLabelText = "The current color has Red: " + redAmount + " Green: " + greenAmount + " Blue: " + blueAmount;
 		colorInfoLabel.setText(colorLabelText);
+		repaint();
 	}
 	
 	private void updateBackground()
@@ -121,13 +129,23 @@ public class ColorPanel extends JPanel
 		blueAmount = current.getBlue();
 		greenAmount = current.getGreen();
 		
+		redField.setText(redAmount + "");
+		greenField.setText(greenAmount + "");
+		blueField.setText(blueAmount + "");
+		
 		colorLabelText = "The current color has Red: " + redAmount + " Green: " + greenAmount + " Blue: " + blueAmount;
 		colorInfoLabel.setText(colorLabelText);
 	}
 	
 	private Color generateRandomColor()
 	{
-		return null;
+		redAmount = (int) (Math.random() * 256);
+		greenAmount = (int) (Math.random() * 123456) % 256;
+		blueAmount = (int) (Math.random() * 256);
+		
+		Color randomColor = new Color(redAmount, greenAmount, blueAmount);
+		
+		return randomColor;
 	}
 
 }
