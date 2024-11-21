@@ -58,13 +58,15 @@ public class ColorPanel extends JPanel
 	{
 		setBackground(Color.CYAN);
 		setLayout(layout);
+		add(gridPanel);
+		
 		gridPanel.add(changeColorButton);
 		gridPanel.add(colorInfoLabel);
 		gridPanel.add(setColorButton);
 		gridPanel.add(redField);
 		gridPanel.add(greenField);
 		gridPanel.add(blueField);
-		add(gridPanel);
+		
 	}
 	
 	private void setupListeners()
@@ -90,7 +92,6 @@ public class ColorPanel extends JPanel
 		catch (NumberFormatException error)
 		{
 			redAmount = (int) (Math.random() * 256);
-			redField.setText(redAmount + "");
 		}
 		try
 		{
@@ -110,31 +111,32 @@ public class ColorPanel extends JPanel
 			blueAmount = (int) (Math.random() * 256);
 			
 		}
+
+		updateFields();
 		
+		setBackground(new Color(redAmount, greenAmount, blueAmount));
+	}
+	
+	private void updateFields()
+	{
 		redField.setText(redAmount + "");
 		greenField.setText(greenAmount + "");
 		blueField.setText(blueAmount + "");
 		
-		setBackground(new Color(redAmount, greenAmount, blueAmount));
 		colorLabelText = "The current color has Red: " + redAmount + " Green: " + greenAmount + " Blue: " + blueAmount;
 		colorInfoLabel.setText(colorLabelText);
-		repaint();
 	}
 	
 	private void updateBackground()
 	{
 		Color current = generateRandomColor();
 		setBackground(current);
+		
 		redAmount = current.getRed();
 		blueAmount = current.getBlue();
 		greenAmount = current.getGreen();
 		
-		redField.setText(redAmount + "");
-		greenField.setText(greenAmount + "");
-		blueField.setText(blueAmount + "");
-		
-		colorLabelText = "The current color has Red: " + redAmount + " Green: " + greenAmount + " Blue: " + blueAmount;
-		colorInfoLabel.setText(colorLabelText);
+		updateFields();
 	}
 	
 	private Color generateRandomColor()
